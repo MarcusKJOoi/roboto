@@ -1,7 +1,24 @@
-// X is used for North (1) / South (-1), Y is used for East (1) / West (-1)
-const facingDirection = { X: 0, Y: 0 }; 
+class Robot {
+    x: number;
+    y: number;
+    facing: Direction;
 
-const gridSize = 5; // 5 x 5 square grid
+    constructor(x: number, y: number, facing: Direction) {
+        this.x = x;
+        this.y = y;
+        this.facing = facing;
+    }
+}
+
+// If we wanted to add ordinal directions (NE/NW/SE/SW), we can fill it in easily
+enum Direction { 
+    North = 0,
+    East = 2,
+    South = 4,
+    West = 6,
+} 
+
+const gridSize: Number = 5; // 5 x 5 square grid
 
 function placeRobot() {
 
