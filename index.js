@@ -33,6 +33,7 @@ function reportPosition() {
     // console.log(`${},${},${}`);
 }
 function parsePrompt(input) {
+    var robot;
     switch (input) {
         case 'PLACE':
             placeRobot();
@@ -57,5 +58,6 @@ fs.readFile('a.txt', 'utf8', function (error, data) {
     if (error) {
         console.error(error);
     }
-    console.log(data);
+    var commands = data.split('\n');
+    console.log(commands);
 });

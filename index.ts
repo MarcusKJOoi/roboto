@@ -47,6 +47,7 @@ function reportPosition() {
 }
 
 function parsePrompt(input: string) {
+    let robot: Robot;
     switch(input) {
         case 'PLACE':
             placeRobot();
@@ -72,5 +73,6 @@ fs.readFile('a.txt', 'utf8', (error, data) => {
     if (error) {
         console.error(error);
     }
-    console.log(data);
-})
+    const commands: Array<string> = data.split('\n');
+    console.log(commands);
+});
