@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 class Robot {
     x: number;
     y: number;
@@ -44,7 +46,7 @@ function reportPosition() {
     // console.log(`${},${},${}`);
 }
 
-function parsePrompt(input) {
+function parsePrompt(input: string) {
     switch(input) {
         case 'PLACE':
             placeRobot();
@@ -65,3 +67,10 @@ function parsePrompt(input) {
             break;
     }
 }
+
+fs.readFile('a.txt', 'utf8', (error, data) => {
+    if (error) {
+        console.error(error);
+    }
+    console.log(data);
+})
