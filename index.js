@@ -18,7 +18,7 @@ function parsePrompt(input, args) {
                 robot = new robot_1["default"](args[0], args[1], args[2], GRID_SIZE);
             }
             else {
-                console.error('An attempt was made to place multiple robots.');
+                console.warn('An attempt was made to place multiple robots.');
             }
             break;
         case 'MOVE':
@@ -39,21 +39,27 @@ function parsePrompt(input, args) {
     }
 }
 exports.parsePrompt = parsePrompt;
-fs.readFile('c.txt', 'utf8', function (error, data) {
-    if (error) {
-        console.error('Error reading file:', error);
-    }
-    var commands = data.split('\n');
-    commands.forEach(function (command) {
-        var split = command.split(' '); // Need to handle PLACE <x,y,d> command
-        var placeArguments = [];
-        if (split.length === 2) {
-            // This is a PLACE <x,y,d> command
-            var values = split[1].split(',');
-            placeArguments = values.map(function (argument) { return parseInt(argument, 10); });
-            // Convert facing direction to enum
-            placeArguments[2] = direction_1.directionStringToEnum(values[2]);
+if (process.argv.length < 3) {
+    console.error('Please provide a file name!');
+}
+else {
+    var fileName = process.argv[2];
+    fs.readFile(fileName, 'utf8', function (error, data) {
+        if (error) {
+            console.error('Error reading file:', error);
         }
-        parsePrompt(split[0], placeArguments);
+        var commands = data.split('\n');
+        commands.forEach(function (command) {
+            var split = command.split(' '); // Need to handle PLACE <x,y,d> command
+            var placeArguments = [];
+            if (split.length === 2) {
+                // This is a PLACE <x,y,d> command
+                var values = split[1].split(',');
+                placeArguments = values.map(function (argument) { return parseInt(argument, 10); });
+                // Convert facing direction to enum
+                placeArguments[2] = direction_1.directionStringToEnum(values[2]);
+            }
+            parsePrompt(split[0], placeArguments);
+        });
     });
-});
+}

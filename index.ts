@@ -16,7 +16,7 @@ export function parsePrompt(input: string, args?: Array<number>) {
             if (robot === undefined) {
                 robot = new Robot(args[0], args[1], args[2], GRID_SIZE);
             } else {
-                console.error('An attempt was made to place multiple robots.');
+                console.warn('An attempt was made to place multiple robots.');
             }
             break;
         case 'MOVE':
@@ -37,21 +37,26 @@ export function parsePrompt(input: string, args?: Array<number>) {
     }
 }
 
-fs.readFile('c.txt', 'utf8', (error, data) => {
-    if (error) {
-        console.error('Error reading file:', error);
-    }
-    const commands: Array<string> = data.split('\n');
-    commands.forEach(command => {
-        const split: Array<string> = command.split(' '); // Need to handle PLACE <x,y,d> command
-        let placeArguments: Array<number> = [];
-        if (split.length === 2) {
-            // This is a PLACE <x,y,d> command
-            const values = split[1].split(',');
-            placeArguments = values.map(argument => parseInt(argument, 10));
-            // Convert facing direction to enum
-            placeArguments[2] = directionStringToEnum(values[2]);
+if (process.argv.length < 3) {
+    console.error('Please provide a file name!');
+} else {
+    const fileName = process.argv[2];
+    fs.readFile(fileName, 'utf8', (error, data) => {
+        if (error) {
+            console.error('Error reading file:', error);
         }
-        parsePrompt(split[0], placeArguments);
-    })
-});
+        const commands: Array<string> = data.split('\n');
+        commands.forEach(command => {
+            const split: Array<string> = command.split(' '); // Need to handle PLACE <x,y,d> command
+            let placeArguments: Array<number> = [];
+            if (split.length === 2) {
+                // This is a PLACE <x,y,d> command
+                const values = split[1].split(',');
+                placeArguments = values.map(argument => parseInt(argument, 10));
+                // Convert facing direction to enum
+                placeArguments[2] = directionStringToEnum(values[2]);
+            }
+            parsePrompt(split[0], placeArguments);
+        })
+    });
+}
