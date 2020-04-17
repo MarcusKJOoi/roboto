@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var direction_1 = require("./direction");
+var direction_1 = require("../direction");
 var Robot = /** @class */ (function () {
     function Robot(x, y, facing, gridSize) {
         if (x < 0 || x >= gridSize) {

@@ -1,4 +1,4 @@
-import { Direction, directionEnumToString } from './direction';
+import { Direction, directionEnumToString } from '../direction/direction';
 
 export default class Robot {
     x: number;

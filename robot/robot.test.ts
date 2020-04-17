@@ -1,5 +1,5 @@
 import Robot from './robot';
-import { Direction } from './direction';
+import { Direction } from '../direction/direction';
 
 describe('Robot', () => {
     it('Initializes correctly', () => {
