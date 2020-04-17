@@ -4,14 +4,17 @@ var direction_1 = require("../direction/direction");
 var Robot = /** @class */ (function () {
     function Robot(x, y, facing, gridSize) {
         if (x < 0 || x >= gridSize) {
-            throw new Error('Invalid X placement provided for robot!');
+            throw new Error('Invalid initial X placement provided for robot!');
         }
         if (y < 0 || y >= gridSize) {
-            throw new Error('Invalid Y placement provided for robot!');
+            throw new Error('Invalid inital Y placement provided for robot!');
         }
         this.x = x;
         this.y = y;
         this.facing = facing;
+        if (this.gridSize < 1) {
+            throw new Error('Invalid grid size given as argument!');
+        }
         this.gridSize = gridSize;
     }
     /*
@@ -32,28 +35,28 @@ var Robot = /** @class */ (function () {
         switch (this.facing) {
             case direction_1.Direction.North:
                 if (this.y + 1 >= this.gridSize) {
-                    console.warn('Moving north would make the robot fall off, ignoring command.');
+                    console.warn("Moving north from " + this.x + ", " + this.y + " is not allowed.");
                     return;
                 }
                 this.y += 1;
                 break;
             case direction_1.Direction.East:
                 if (this.x + 1 >= this.gridSize) {
-                    console.warn('Moving east would make the robot fall off, ignoring command.');
+                    console.warn("Moving east from " + this.x + ", " + this.y + " is not allowed.");
                     return;
                 }
                 this.x += 1;
                 break;
             case direction_1.Direction.South:
                 if (this.y - 1 < 0) {
-                    console.warn('Moving south would make the robot fall off, ignoring command.');
+                    console.warn("Moving south from " + this.x + ", " + this.y + " is not allowed.");
                     return;
                 }
                 this.y -= 1;
                 break;
             case direction_1.Direction.West:
                 if (this.x - 1 < 0) {
-                    console.warn('Moving west would make the robot fall off, ignoring command.');
+                    console.warn("Moving west from " + this.x + ", " + this.y + " is not allowed.");
                     return;
                 }
                 this.x -= 1;

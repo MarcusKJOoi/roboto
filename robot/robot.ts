@@ -8,14 +8,17 @@ export default class Robot {
 
     constructor(x: number, y: number, facing: Direction, gridSize: number) {
         if (x < 0 || x >= gridSize) {
-            throw new Error('Invalid X placement provided for robot!');
+            throw new Error('Invalid initial X placement provided for robot!');
         }
         if (y < 0 || y >= gridSize) {
-            throw new Error('Invalid Y placement provided for robot!');
+            throw new Error('Invalid inital Y placement provided for robot!');
         }
         this.x = x;
         this.y = y;
         this.facing = facing;
+        if (this.gridSize < 1) {
+            throw new Error('Invalid grid size given as argument!');
+        }
         this.gridSize = gridSize;
     }
 
@@ -39,28 +42,28 @@ export default class Robot {
         switch(this.facing) {
             case Direction.North:
                 if (this.y + 1 >= this.gridSize) {
-                    console.warn('Moving north would make the robot fall off, ignoring command.');
+                    console.warn(`Moving north from ${this.x}, ${this.y} is not allowed.`);
                     return;
                 }
                 this.y += 1;
                 break;
             case Direction.East:
                 if (this.x + 1 >= this.gridSize) {
-                    console.warn('Moving east would make the robot fall off, ignoring command.');
+                    console.warn(`Moving east from ${this.x}, ${this.y} is not allowed.`);
                     return;
                 }
                 this.x += 1;
                 break;
             case Direction.South:
                 if (this.y - 1 < 0) {
-                    console.warn('Moving south would make the robot fall off, ignoring command.');
+                    console.warn(`Moving south from ${this.x}, ${this.y} is not allowed.`);
                     return;
                 }
                 this.y -= 1;
                 break;
             case Direction.West:
                 if (this.x - 1 < 0) {
-                    console.warn('Moving west would make the robot fall off, ignoring command.');
+                    console.warn(`Moving west from ${this.x}, ${this.y} is not allowed.`);
                     return;
                 }
                 this.x -= 1;

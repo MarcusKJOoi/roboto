@@ -17,7 +17,11 @@ describe('Robot', () => {
     
     it('Throws an error when initializing with invalid arguments', () => {
         expect(() => {
-            const robot3: Robot = new Robot(10, 10, Direction.South, 2);
+            const robot: Robot = new Robot(10, 10, Direction.South, 2);
+        }).toThrow();
+   
+        expect(() => {
+            const robot: Robot = new Robot(0, 0, Direction.North, -1);
         }).toThrow();    
     });
 
