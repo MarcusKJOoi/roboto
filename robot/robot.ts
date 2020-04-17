@@ -52,14 +52,14 @@ export default class Robot {
                 this.x += 1;
                 break;
             case Direction.South:
-                if (this.y - 1 <= 0) {
+                if (this.y - 1 < 0) {
                     console.warn('Moving south would make the robot fall off, ignoring command.');
                     return;
                 }
                 this.y -= 1;
                 break;
             case Direction.West:
-                if (this.x - 1 >= this.gridSize) {
+                if (this.x - 1 < 0) {
                     console.warn('Moving west would make the robot fall off, ignoring command.');
                     return;
                 }

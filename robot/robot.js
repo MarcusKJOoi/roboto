@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var direction_1 = require("../direction");
+var direction_1 = require("../direction/direction");
 var Robot = /** @class */ (function () {
     function Robot(x, y, facing, gridSize) {
         if (x < 0 || x >= gridSize) {
@@ -45,14 +45,14 @@ var Robot = /** @class */ (function () {
                 this.x += 1;
                 break;
             case direction_1.Direction.South:
-                if (this.y - 1 <= 0) {
+                if (this.y - 1 < 0) {
                     console.warn('Moving south would make the robot fall off, ignoring command.');
                     return;
                 }
                 this.y -= 1;
                 break;
             case direction_1.Direction.West:
-                if (this.x - 1 >= this.gridSize) {
+                if (this.x - 1 < 0) {
                     console.warn('Moving west would make the robot fall off, ignoring command.');
                     return;
                 }
