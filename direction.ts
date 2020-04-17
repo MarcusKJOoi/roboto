@@ -1,3 +1,4 @@
+// Increments by 1 going clockwise
 export enum Direction { 
     North = 0,
     East = 1,

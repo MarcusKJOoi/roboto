@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+// Increments by 1 going clockwise
 var Direction;
 (function (Direction) {
     Direction[Direction["North"] = 0] = "North";
