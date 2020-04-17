@@ -1,6 +1,3 @@
-# roboto
-REA Toy Robot coding challenge.
-
 # How to run
 This program was run on NodeJS v12.14.1 and npm v6.14.1. 
 
