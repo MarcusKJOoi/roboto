@@ -1,12 +1,11 @@
 "use strict";
 exports.__esModule = true;
-// If we wanted to add ordinal directions (NE/NW/SE/SW), we can fill it in easily
 var Direction;
 (function (Direction) {
     Direction[Direction["North"] = 0] = "North";
-    Direction[Direction["East"] = 2] = "East";
-    Direction[Direction["South"] = 4] = "South";
-    Direction[Direction["West"] = 6] = "West";
+    Direction[Direction["East"] = 1] = "East";
+    Direction[Direction["South"] = 2] = "South";
+    Direction[Direction["West"] = 3] = "West";
 })(Direction = exports.Direction || (exports.Direction = {}));
 // Converts a direction from string to its corresponding enum value
 function directionStringToEnum(directionString) {
