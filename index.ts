@@ -1,88 +1,35 @@
-import * as fs from 'fs';
-
-class Robot {
-    x: number;
-    y: number;
-    facing: Direction;
-
-    constructor(x: number, y: number, facing: Direction) {
-        this.x = x;
-        this.y = y;
-        this.facing = facing;
-    }
-
-    move() {
-        if (this.facing === Direction.North) {
-            this.x
-        }
-        if (this.facing === Direction.East) {
-
-        }
-        if (this.facing === Direction.South) {
-
-        }
-        if (this.facing === Direction.West) {
-
-        }
-    }
-
-    report() {
-        console.log(`${this.x},${this.y},${this.facing}`);
-    }
-}
-
-// If we wanted to add ordinal directions (NE/NW/SE/SW), we can fill it in easily
-enum Direction { 
-    North = 0,
-    East = 2,
-    South = 4,
-    West = 6,
-} 
+import * as fs from 'fs'; 
+import { directionStringToEnum } from './direction/direction';
+import Robot from './robot/robot';
 
 /*
     0, 0 is the south west corner of the grid
 */
-const gridSize: Number = 5;
+const GRID_SIZE: number = 5;
+let robot: Robot;
 
-function moveRobot() {
-
-}
-
-function rotateLeft() {
-    
-}
-
-function rotateRight() {
-
-}
-
-function reportPosition() {
-    // console.log(`${},${},${}`);
-}
-
-function parsePrompt(input: string, args?: Array<number>) {
-    let robot: Robot;
+export function parsePrompt(input: string, args?: Array<number>) {
     switch(input) {
         case 'PLACE':
-            // At the moment we assume that there can only be
+            // Assume that there can only be
             // one robot on the field at any given time
             if (robot === undefined) {
-                robot = new Robot(args[0], args[1], args[2]);
+                robot = new Robot(args[0], args[1], args[2], GRID_SIZE);
             } else {
-                console.error('An attempt was made to place multiple robots');
+                console.error('An attempt was made to place multiple robots.');
             }
             break;
         case 'MOVE':
-            moveRobot();
+            robot?.move();
             break;
         case 'LEFT':
-            rotateLeft();
+            robot?.rotateLeft();
             break;
         case 'RIGHT':
-            rotateRight();
+            robot?.rotateRight();
             break;
         case 'REPORT':
-            reportPosition();
+            robot?.report();
             break;
         default:
             console.log('Unrecognized command provided', input);
@@ -90,24 +37,7 @@ function parsePrompt(input: string, args?: Array<number>) {
     }
 }
 
-function directionToEnum(direction: string): Direction | number {
-    if (direction === 'NORTH') {
-        return Direction.North;
-    }
-    if (direction === 'EAST') {
-        return Direction.East;
-    }
-    if (direction === 'SOUTH') {
-        return Direction.South;
-    }
-    if (direction === 'WEST') {
-        return Direction.West;
-    }
-    console.error('Invalid direction given as input', direction);
-    return -1;
-}
-
-fs.readFile('a.txt', 'utf8', (error, data) => {
+fs.readFile('c.txt', 'utf8', (error, data) => {
     if (error) {
         console.error('Error reading file:', error);
     }
@@ -120,7 +50,7 @@ fs.readFile('a.txt', 'utf8', (error, data) => {
             const values = split[1].split(',');
             placeArguments = values.map(argument => parseInt(argument, 10));
             // Convert facing direction to enum
-            placeArguments[2] = directionToEnum(values[2]);
+            placeArguments[2] = directionStringToEnum(values[2]);
         }
         parsePrompt(split[0], placeArguments);
     })

@@ -1,96 +1,45 @@
 "use strict";
 exports.__esModule = true;
 var fs = require("fs");
-var Robot = /** @class */ (function () {
-    function Robot(x, y, facing) {
-        this.x = x;
-        this.y = y;
-        this.facing = facing;
-    }
-    Robot.prototype.move = function () {
-        if (this.facing === Direction.North) {
-            this.x;
-        }
-        if (this.facing === Direction.East) {
-        }
-        if (this.facing === Direction.South) {
-        }
-        if (this.facing === Direction.West) {
-        }
-    };
-    Robot.prototype.report = function () {
-        console.log(this.x + "," + this.y + "," + this.facing);
-    };
-    return Robot;
-}());
-// If we wanted to add ordinal directions (NE/NW/SE/SW), we can fill it in easily
-var Direction;
-(function (Direction) {
-    Direction[Direction["North"] = 0] = "North";
-    Direction[Direction["East"] = 2] = "East";
-    Direction[Direction["South"] = 4] = "South";
-    Direction[Direction["West"] = 6] = "West";
-})(Direction || (Direction = {}));
+var direction_1 = require("./direction/direction");
+var robot_1 = require("./robot/robot");
 /*
     0, 0 is the south west corner of the grid
 */
-var gridSize = 5;
-function moveRobot() {
-}
-function rotateLeft() {
-}
-function rotateRight() {
-}
-function reportPosition() {
-    // console.log(`${},${},${}`);
-}
+var GRID_SIZE = 5;
+var robot;
 function parsePrompt(input, args) {
-    var robot;
+    var _a, _b, _c, _d;
     switch (input) {
         case 'PLACE':
-            // At the moment we assume that there can only be
+            // Assume that there can only be
             // one robot on the field at any given time
             if (robot === undefined) {
-                robot = new Robot(args[0], args[1], args[2]);
+                robot = new robot_1["default"](args[0], args[1], args[2], GRID_SIZE);
             }
             else {
-                console.error('An attempt was made to place multiple robots');
+                console.error('An attempt was made to place multiple robots.');
             }
             break;
         case 'MOVE':
-            moveRobot();
+            (_a = robot) === null || _a === void 0 ? void 0 : _a.move();
             break;
         case 'LEFT':
-            rotateLeft();
+            (_b = robot) === null || _b === void 0 ? void 0 : _b.rotateLeft();
             break;
         case 'RIGHT':
-            rotateRight();
+            (_c = robot) === null || _c === void 0 ? void 0 : _c.rotateRight();
             break;
         case 'REPORT':
-            reportPosition();
+            (_d = robot) === null || _d === void 0 ? void 0 : _d.report();
             break;
         default:
             console.log('Unrecognized command provided', input);
             break;
     }
 }
-function directionToEnum(direction) {
-    if (direction === 'NORTH') {
-        return Direction.North;
-    }
-    if (direction === 'EAST') {
-        return Direction.East;
-    }
-    if (direction === 'SOUTH') {
-        return Direction.South;
-    }
-    if (direction === 'WEST') {
-        return Direction.West;
-    }
-    console.error('Invalid direction given as input', direction);
-    return -1;
-}
-fs.readFile('a.txt', 'utf8', function (error, data) {
+exports.parsePrompt = parsePrompt;
+fs.readFile('c.txt', 'utf8', function (error, data) {
     if (error) {
         console.error('Error reading file:', error);
     }
@@ -103,7 +52,7 @@ fs.readFile('a.txt', 'utf8', function (error, data) {
             var values = split[1].split(',');
             placeArguments = values.map(function (argument) { return parseInt(argument, 10); });
             // Convert facing direction to enum
-            placeArguments[2] = directionToEnum(values[2]);
+            placeArguments[2] = direction_1.directionStringToEnum(values[2]);
         }
         parsePrompt(split[0], placeArguments);
     });
