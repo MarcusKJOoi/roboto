@@ -4,7 +4,7 @@
   "description": "REA toy robot coding challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/MarcusKJOoi/roboto#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
     "jest": "^25.3.0"
   },
   "dependencies": {
+    "@types/jest": "^25.2.1",
     "@types/node": "^13.11.1"
   }
 }
