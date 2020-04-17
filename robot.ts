@@ -19,23 +19,55 @@ export default class Robot {
         this.gridSize = gridSize;
     }
 
+    /*
+        Decrements robot facing enum value, 
+        unless rotating from North (0) to East (3) 
+    */
+    rotateLeft() {
+        this.facing = this.facing - 1 < 0 ? 3 : this.facing - 1;
+    }
+
+    /*
+        Increments robot facing enum value,
+        and checks for overflow when rotating from East (3) to North (0)
+    */
+    rotateRight() {
+        this.facing = this.facing + 1 % 3;
+    }
+
     move() {
-    //     switch(this.facing) {
-    //         case Direction.North:
-    //             if ()
-    //             break;
-    //         case Direction.North:
-    //             if ()
-    //             break;
-    //         case Direction.North:
-    //             if ()
-    //             break;
-    //         case Direction.North:
-    //             if ()
-    //             break;
-    //         default:
-    //             break;
-    //     }
+        switch(this.facing) {
+            case Direction.North:
+                if (this.y + 1 >= this.gridSize) {
+                    console.warn('Moving north would make the robot fall off, ignoring command.');
+                    return;
+                }
+                this.y += 1;
+                break;
+            case Direction.East:
+                if (this.x + 1 >= this.gridSize) {
+                    console.warn('Moving east would make the robot fall off, ignoring command.');
+                    return;
+                }
+                this.x += 1;
+                break;
+            case Direction.South:
+                if (this.y - 1 <= 0) {
+                    console.warn('Moving south would make the robot fall off, ignoring command.');
+                    return;
+                }
+                this.y -= 1;
+                break;
+            case Direction.West:
+                if (this.x - 1 >= this.gridSize) {
+                    console.warn('Moving west would make the robot fall off, ignoring command.');
+                    return;
+                }
+                this.x -= 1;
+                break;
+            default:
+                break;
+        }
     }
 
     report() {
